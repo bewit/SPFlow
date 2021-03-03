@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
+# Moritz' fix
 def prod_condition(node, children, input_vals=None, scope=None):
     if not scope.intersection(node.scope):
         return Copy(node), 0
@@ -20,6 +20,10 @@ def prod_condition(node, children, input_vals=None, scope=None):
         if c[0]:
             new_node.children.append(c[0])
         probability += float(c[1])
+
+    if len(new_node.children) == 0:
+        return None, probability
+
     return new_node, probability
 
 
